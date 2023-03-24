@@ -1,5 +1,6 @@
 from django.shortcuts import render
 import requests, json
+from datetime import datetime
 
 # mudar de lugar depois
 def getCityWeather(city):
@@ -7,15 +8,35 @@ def getCityWeather(city):
   response = requests.get(f"http://api.openweathermap.org/data/2.5/weather?q={city}&units=metric&appid={apiKey}").json()
   return response
 
-# Create your views here.
-def index(request):
-  weather = {
-    "city": "Fortaleza",
-    "temp": 36,
-    "tempMin": 34,
-    "tempMax": 40,
-    "humidity": 40,
-    "pressure": 15
+def responseCleaner(response):
+  if(response["cod"] != 200):
+    return False
+
+  date = datetime.now()
+
+  return {
+    "city": response["name"],
+    "country": response["sys"]["country"],
+    "month": date.strftime("%B"),
+    "day": date.day,
+    "year": date.year,
+    "weekDay": date.strftime("%A"),
+    "icon": response["weather"][0]["icon"],
+    "main": response["weather"][0]["main"],
+    "description": response["weather"][0]["description"],
+    "temp": response["main"]["temp"],
+    "tempMin": response["main"]["temp_min"],
+    "tempMax": response["main"]["temp_max"]
   }
-  context = { "weather": weather }
+
+# Create your views here.
+def index(request, city):
+  response = responseCleaner(getCityWeather(city))
+
+  if(response):
+    context = { "weather": responseCleaner(getCityWeather(city)) }
+  
+  else:
+    context = {}
+
   return render(request, "app/index.html", context)
