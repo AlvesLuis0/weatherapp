@@ -12,6 +12,7 @@
   </head>
 
   <body>
+    {% if weather %}
     <div class="container-fluid p-0 container-sm d-flex justify-content-center">
 
       <div class="card text-center shadow-lg" style="width: 26rem;">
@@ -49,5 +50,8 @@
     </div>
 
     <script src="https://kit.fontawesome.com/f0e17cbf2f.js" crossorigin="anonymous"></script>
+    {% else %}
+    <h1>404 Error: City not found</h1>
+    {% endif %}
   </body>
 </html>

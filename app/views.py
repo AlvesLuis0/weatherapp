@@ -32,11 +32,9 @@ def responseCleaner(response):
 # Create your views here.
 def index(request, city):
   response = responseCleaner(getCityWeather(city))
+  context = {}
 
   if(response):
     context = { "weather": responseCleaner(getCityWeather(city)) }
-  
-  else:
-    context = {}
 
   return render(request, "app/index.html", context)
