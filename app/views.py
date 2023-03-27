@@ -1,6 +1,6 @@
 from django.shortcuts import render
-import requests, json
 from datetime import datetime
+import requests
 
 # mudar de lugar depois
 def getCityWeather(city):
@@ -35,6 +35,6 @@ def index(request, city):
   context = {}
 
   if(response):
-    context = { "weather": responseCleaner(getCityWeather(city)) }
+    context = { "weather": response }
 
   return render(request, "app/index.html", context)
