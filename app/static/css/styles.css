@@ -18,8 +18,7 @@ body{
     background-color: rgba(244, 208, 63, 0.2);
     box-shadow: 5px 6px rgba(0, 0, 0, 0.6);
     cursor: pointer;
-
-    font-size: 100px;
+    font-size: 75px;
     font-weight: 900;
     text-shadow: 3px 6px rgba(0, 0, 0, 0.2);
 }
