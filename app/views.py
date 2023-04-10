@@ -21,3 +21,7 @@ def index(request, city):
 def deleteRequests(request):
   REQUEST.objects.all().delete()
   return HttpResponse("<h1>Done</h1>")
+
+def getRequests(request):
+  context = { "requests": REQUEST.objects.all() }
+  return render(request, "app/table.html", context)
