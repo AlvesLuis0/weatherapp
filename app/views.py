@@ -23,5 +23,5 @@ def deleteRequests(request):
   return HttpResponse("<h1>Done</h1>")
 
 def getRequests(request):
-  context = { "requests": REQUEST.objects.all() }
+  context = { "requests": REQUEST.objects.order_by("-DATE") }
   return render(request, "app/table.html", context)
