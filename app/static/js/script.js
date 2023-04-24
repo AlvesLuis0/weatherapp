@@ -3,7 +3,7 @@ const searchButton = document.getElementById("search-button");
 
 async function searchCity(event) {
   if(event.key == "Enter" && searchInput.value)
-    location.assign(`/app/${searchInput.value}`);
+    location.assign(`/${searchInput.value}`);
 }
 
 searchInput.addEventListener("keydown", searchCity);

@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.utils import timezone
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from .functions.weather import *
 from .models import REQUEST
 
@@ -16,12 +16,15 @@ def index(request, city):
       DATE = timezone.now()
     )
 
-  return render(request, "app/index.html", context)
+  return render(request, "index.html", context)
 
 def deleteRequests(request):
   REQUEST.objects.all().delete()
   return HttpResponse("<h1>Done</h1>")
 
 def getRequests(request):
-  context = { "requests": REQUEST.objects.order_by("-DATE") }
-  return render(request, "app/table.html", context)
+  context = { "requests": REQUEST.objects.order_by("-DATE")[:11] }
+  return render(request, "table.html", context)
+
+def redirect(request):
+  return HttpResponseRedirect("Fortaleza/")
